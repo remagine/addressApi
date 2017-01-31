@@ -44,4 +44,4 @@
 다음 업데이트 절차 문서를 참고하세요
 [업데이트 절차](https://docs.google.com/document/d/14eX122q6fGBw_STu94zXrxyTybiEv4kY9UzeX7FGGu8/edit)
 
-_Shell script 파일들은  [shell 디렉토리](http://gitlab.iropke.com/arthur/Iropke-Address/tree/develop/shell)에 있습니다._
+_Shell script 파일들은  [shell 디렉토리](https://github.com/remagine/addressApi/tree/master/shell)에 있습니다._
