@@ -1,0 +1,43 @@
+@import com.iropke.common.address.util.Paging, org.apache.commons.lang3.*
+
+@args Paging paging, String pageUrl, String pid, String tag
+@{
+    Integer totalCount = paging.getTotalCount();
+    Integer currentPage = paging.getCurrentPage() + 1;
+    Integer lastPage = paging.getLastPage() + 1;
+    Integer prePage = paging.getPrevious();
+    String tName = tag;
+}
+</tbody>
+</table>
+<div class="pagination" >  
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+    @if (paging.getPrevPage() > -1) {
+        <li><a data-page-num = "0" href="javascript:void(0)" class="x-btn-page"><span >처음</span></a></li>
+    	<li><a data-page-num = "@paging.getPrevPage()" href="javascript:void(0)" class="x-btn-page"><span >이전</span></a></li>
+    }
+
+    @for (Integer page : paging.getPages()) {
+        @{
+            Integer printPage = page + 1;
+        }
+        
+        @if (page.equals(paging.getCurrentPage())) {
+            <li class="active"><a><span>@printPage</span></a></li>
+        } else {
+            <li><a data-page-num="@page" href="javascript:void(0)" class="x-btn-page">
+                @printPage
+            </a></li>
+        }
+    }
+  	
+	
+    @if (paging.getNextPage() <= paging.getLastPage()) {
+    	<li><a data-page-num = "@paging.getNextPage()"  href="javascript:void(0)" class="x-btn-page"><span >다음</span></a></li>
+    	<li><a data-page-num = "@paging.getLastPage()"  href="javascript:void(0)" class="x-btn-page"><span >마지막</span></a></li>
+    } 
+	</ul>
+</nav>	
+</div>
+

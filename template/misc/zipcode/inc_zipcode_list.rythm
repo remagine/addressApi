@@ -1,0 +1,71 @@
+@import java.util.List,  com.iropke.common.address.entity.ZipCode
+
+@args {
+   String pageUrl 
+   List<ZipCode> zipCodes
+   int totalCount
+   String oldAddress
+   String newAddress
+   String zipCode
+   }
+
+@if(totalCount > 0){
+   	<p id = "result">@totalCount 개 검색 되었습니다.</p>
+}
+
+@if(totalCount > 500) {
+<p class="inner_desc">
+<span class="emph_bold">검색결과가 많습니다.</span>
+&nbsp;&nbsp;검색어에 아래와 같은 조합을 이용하시면 더욱 정확한 결과가 검색됩니다.&nbsp;&nbsp;&nbsp;
+<em class="emph_post">‘도로명+건물번호’</em>,&nbsp;&nbsp;&nbsp;
+<em class="emph_post">‘지역명+지번’</em>,&nbsp;&nbsp;&nbsp;<em class="emph_post">
+‘지역명+건물명(아파트명)’
+}
+
+<table id="zipCode_table" width="100%" border="1" cellspacing="0" cellpadding="0" >							
+			<colgroup>
+				<col style="width:15%;" />
+				<col style="width:auto;" />									
+			</colgroup> 
+			<thead>
+				<tr>
+					<th scope="col">우편번호</th>
+					<th scope="col">주소</th>	
+				</tr>
+@if(zipCodes.size() > 0) {	
+   @for(ZipCode aZipCode : zipCodes){
+   	@{	
+   	zipCode = aZipCode.getZipCode();
+   	newAddress = aZipCode.getNewAddress();
+   	oldAddress = aZipCode.getOldAddress();
+   	}
+   			<tr> 
+				<td rowspan="2">@zipCode</td>
+				<td><a href="javascript:sendChildValue('@zipCode','@newAddress');">@newAddress</a></td>
+			</tr>
+			<tr>
+				<td><a href="javascript:sendChildValue('@zipCode','@oldAddress');">@oldAddress</a></td>
+			</tr>		 
+   }
+ 	   </tbody>
+	</table>
+} else { 
+			<tr name="none">
+				<td name="none" colspan="2" style = "text-align : center"><strong> - 검색결과가 없습니다. - </strong></td>
+			</tr>
+		</tbody>
+	</table>
+}
+ 
+  @{
+  	 pageUrl = "/misc/zipcode/zipcode/count";
+  }
+  
+  @include(paging_zipcode) 
+  
+  <script>
+  function sendChildValue(zipCode, address){
+	opener.setChildValue(zipCode, address);
+	window.close();
+	}
+  </script>
