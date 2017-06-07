@@ -28,19 +28,17 @@ public class ZipCodeDao extends DaoBase {
     public List<ZipCode> search(HashMap<String, String> map, int page) {
 
         String srchVal = map.get("srchVal");// 검색어 원본
-        String[] searchArray = new String[] {srchVal};
-        
+        String[] searchArray =srchVal.split(" ");
+
         Integer offset = page * Const.ADMIN_LIST_SIZE; // 검색 시작값
 
-        System.out.println("Dao" + searchArray[searchArray.length-1]);
-      
         Criteria c = session().createCriteria(ZipCode.class);
-        
+
         List<ZipCode> zipCodes = c.add(Restrictions.
                 sqlRestriction("search_array @> ?", searchArray, new CustomType(new ArrayType())))
                 .setMaxResults(Const.ADMIN_LIST_SIZE)
                 .setFirstResult(offset).list();
-        
+
         return zipCodes;
 
     }

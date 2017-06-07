@@ -1,0 +1,88 @@
+@import() {
+    com.iropke.arthur.entity.*
+    com.iropke.arthur.util.*
+    com.iropke.arthur.dao.*
+    com.iropke.arthur.service.*
+    org.apache.commons.lang3.*
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ @args String title = "Arthur-Index", String r
+<title>@title</title>
+
+ <link href="/static/css/toastr.min.css" rel="stylesheet">
+ <link href="/static/css/notice.css" rel="stylesheet">
+ <link href="/static/bootstrap/css/AdminLTE.min.css" rel="stylesheet">
+ <link href="/static/bootstrap/css/skin-red-light.min.css" rel="stylesheet"> 
+ <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <script src="/static/js/jquery-1.11.2.min.js"></script>
+ <script src="/static/js/toastr.min.js"></script>
+ <script src="/static/js/notice.js"></script>
+ <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+@{
+    boolean pvarIsLogin = Logics.isLogin(request);    
+  }
+  <h1> 회원가입  </h1>
+  
+	 <div class="login-area">
+                            <div class="login-form">
+                                <form name="" action="/login/registMember" method="post" id="login-member-form">
+                                    
+                                    <input type="hidden" name="redirectUrl" value="@redirectUrl@" />
+                                    
+                                    <fieldset>
+                                        <legend class="blind">회원가입</legend>
+                                        <div class="login-input">
+                                        	<div class="input-wrap">
+                                                <label for="username" class="blind">이름</label>
+                                                <input name="username" type="text" id="username" class="input input-wide" placeholder="이름"
+                                                    data-validation="required"
+                                                    data-validation-error-msg="이름를 입력해주세요.">
+                                            </div>
+                                            <div class="input-wrap">
+                                                <label for="userid" class="blind">아이디</label>
+                                                <input name="userid" type="text" id="userid" class="input input-wide" placeholder="아이디"
+                                                    data-validation="required"
+                                                    data-validation-error-msg="아이디를 입력해주세요.">
+                                            </div>
+                                            <div class="input-wrap">
+                                                <label for="userpw" class="blind">비밀번호</label>
+                                                <input name="userpw" type="password" id="userpw" class="input input-wide" placeholder="비밀번호"
+                                                    data-validation="required"
+                                                    data-validation-error-msg="비밀번호를 입력해주세요.">
+                                            </div>
+                                            
+                                               <div class="adr-wrap" id="address-area">
+                                        			<a id="x-btn-zip" href="/misc/zipcode" onclick = 'window.open( this.href, "zipcode_popup", "width=360, height=450");return false;' target="_blank">우편번호</a>
+                                       				                                     			
+                                            <input id="zip"name="zip" placeholder="우편번호">
+                                            <input id="address" name="address" placeholder="기본주소">
+                                            <input id="addressDetail" name="addressDetail" placeholder="상세주소">
+                                    </div>
+                                        </div>                                        
+                                        <div class="login-func">
+                                            <button type="submit" class="btn btn-em btn-wide">회원가입</button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+
+	@{
+        String msg = HttpUtils.viewMessage(request);
+    }
+    @msg.raw()
+    <script>
+    function setChildValue(zipCode, address){
+      document.getElementById("zip").value = zipCode;
+      document.getElementById("address").value = address;
+	}
+    </script>	
+</body>
+</html>
