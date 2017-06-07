@@ -2,7 +2,9 @@ package com.iropke.common.address.controller;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,7 @@ public class ZipCodeController {
     @Autowired
     private ZipCodeService zipCodeService;
 
-    @RequestMapping(value = "/zipcode")
+    @RequestMapping(value = "")
     public String zipcode() {
         return "/misc/zipcode/zipcode";
     }
@@ -38,7 +40,7 @@ public class ZipCodeController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "/zipcode/count/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/count/{page}", method = RequestMethod.GET)
     public String counts(Model model, @PathVariable int page, @RequestParam(value = "srchVal") String srchVal, HttpServletResponse response) {
 
         int totalCount = 0; // 검색된 결과 수
@@ -46,8 +48,6 @@ public class ZipCodeController {
         // 검색조건 일괄 소문자 처리
         srchVal = srchVal.toLowerCase();
         param.put("srchVal", srchVal);
-
-        System.out.println("controller ::: " + param.toString());
 
         List<ZipCode> zipCodes = zipCodeService.search(param, page);
         if (!zipCodes.isEmpty()) {
