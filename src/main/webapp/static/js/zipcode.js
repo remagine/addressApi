@@ -67,7 +67,6 @@ var search = function(page) {
 	}	
 	
 	srchVal = doGetFullSidoName(srchVal);
-	console.log(srchVal);
 	$.ajax({
 		url : "/misc/zipcode/count/" + page,
 		type : "GET",
@@ -75,7 +74,6 @@ var search = function(page) {
 			'srchVal' : srchVal
 		},
 		success : function(response) {
-
 			$('#zipCode_table').remove();
 			$('#result').remove();
 			$('#table_wrapper').html(response);
